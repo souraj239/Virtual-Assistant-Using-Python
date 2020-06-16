@@ -1,6 +1,9 @@
 import pyttsx3
 import datetime
 import speech_recognition as sr
+import wikipedia
+import webbrowser
+import os
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -23,7 +26,7 @@ def takeCommand():
     r=sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening....")
-        r.pause_threshold = 1 
+        #r.pause_threshold = 1 
         audio=r.listen(source)
     try:
         print("Recognizing...")
@@ -38,4 +41,30 @@ def takeCommand():
 
 if __name__=="__main__":
     wishMe()
-    takeCommand()
+    while True:
+        query=takeCommand().lower()
+        if 'wikipedia'in query:
+            speak("Searching wikipedia......")
+            query=query.replace("wikipedia"," ")
+            results=wikipedia.summary(query,sentences=2)
+            speak("According to Wikipedia...")
+            print(results)
+            speak(results)
+        
+        elif "open youtube" in query:
+            webbrowser.open("youtube.com")
+
+        elif "open google" in query:
+            webbrowser.open("google.com")        
+        
+        elif "play music" in query:
+            music_dir="E:\\Sunday Suspence"
+            songs=os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir,songs[0])) 
+
+        elif "time" in query:
+            strTime=datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"The time is {strTime}")
+
+

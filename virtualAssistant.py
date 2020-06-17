@@ -9,7 +9,7 @@ from googlesearch import *
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-engine.setProperty('voice',voices[0].id)
+engine.setProperty('voice',voices[2].id)
 
 def speak(audio):
     print(audio)
@@ -88,6 +88,7 @@ def takeNotes():
         speak("Do you want to add anything else ? ")
         choice=takeCommand().lower()
         if "no" in choice or 'exit' in choice:
+            speak("notes saved..")
             break
 
 def sendEmail(to, message):
@@ -129,7 +130,7 @@ if __name__=="__main__":
             chrome_path = r'C:\\Program Files (x86)\\Google\\Chrome\\Application %s'
             webbrowser.open("google.com")        
         
-        elif "play music" in query:
+        elif "play music" in query or 'play songs' in query:
             music_dir="D:\\music"                            #Add your own music directory
             songs=os.listdir(music_dir)
             print(songs)

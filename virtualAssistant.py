@@ -130,7 +130,7 @@ if __name__=="__main__":
             webbrowser.open("google.com")        
         
         elif "play music" in query:
-            music_dir="E:\\Sunday Suspence"
+            music_dir="D:\\music"                            #Add your own music directory
             songs=os.listdir(music_dir)
             print(songs)
             os.startfile(os.path.join(music_dir,songs[0])) 

@@ -48,6 +48,29 @@ def takeCommand():
         return "None"
     return query
 
+def googleSearch(query):
+    chrome_path = r'C:\\Program Files (x86)\\Google\\Chrome\\Application %s'
+    for url in search(query, tld="co.in", num=1, stop = 1, pause = 2):
+        webbrowser.open("https://google.com/search?q=%s" % query)
+    
+def readNotes():
+    with open("notes.txt","r") as f:
+       notes=f.read() 
+    speak(notes)
+
+def openApp(appName):
+    appdir={}
+    try:
+        with open("applicationpaths.txt","r") as f:                 #add the apps and their path names in the file
+            for line in f:
+                (app,path)= line.split("  ")
+                appdir[app]=path
+        os.startfile((appdir.get(appName)).strip())
+    except Exception as e:
+        print(e)
+        speak("Cannot find the Application. Searching on google")
+        googleSearch(f"open {query}")
+
 def addressbook(first_name):
     addDict={}
     with open("addressbook.txt",'r') as f:                          #populate the addressbook.txt with your contacts
@@ -55,13 +78,23 @@ def addressbook(first_name):
             (name,email)=line.split(" ")
             addDict[name]=email
     return addDict.get(first_name,"Error")
-      
+
+def takeNotes():
+    while(True):
+        speak("Please dictate your notes")
+        notes=takeCommand()
+        with open("notes.txt","a+") as f:
+            f.writelines(notes)
+        speak("Do you want to add anything else ? ")
+        choice=takeCommand().lower()
+        if "no" in choice or 'exit' in choice:
+            break
 
 def sendEmail(to, message):
     server=smtplib.SMTP('smtp.gmail.com',587)
     server.ehlo()
     server.starttls()
-    with open('credentials.txt','r') as f:                                 #put your credentials in cred.txt fie as shown in example
+    with open('credentials.txt','r') as f:                          #put your credentials in cred.txt fie as shown in example
         cred=f.read()
     eid,passw=cred.split(" ")[0], cred.split(" ")[1]
     server.login(eid,passw)
@@ -75,17 +108,15 @@ if __name__=="__main__":
         if 'wikipedia'in query:
             speak("Searching wikipedia......")
             query=query.replace("wikipedia"," ")
-            results=wikipedia.summary(query,sentences=2)
+            results=wikipedia.summary(query,sentences=3)
             speak("According to Wikipedia...")
-            print(results)
             speak(results)
             
         if 'who is'in query:
             speak("Searching wikipedia......")
             query=query.replace("who is"," ")
-            results=wikipedia.summary(query,sentences=2)
+            results=wikipedia.summary(query,sentences=3)
             speak("According to Wikipedia...")
-            print(results)
             speak(results)
         
         elif "open youtube" in query:
@@ -133,12 +164,20 @@ if __name__=="__main__":
                 speak("You have entered a Invalid name. Please Try again")
             else:
                 speak(f"{contact}'s email id is : {mailid}")
+                
+        elif "open" in query:
+            query=(query.replace("open ","")).strip()
+            openApp(query)
+            
+        elif "take notes" in query:
+            takeNotes()
+        
+        elif "read" in query and "notes" in query:
+            readNotes()
             
         elif "exit" in query:
-                speak("Have a Good day!")
-                break
+            speak("Have a Good day!")
+            break
             
         else:
-            chrome_path = r'C:\\Program Files (x86)\\Google\\Chrome\\Application %s'
-            for url in search(query, tld="co.in", num=1, stop = 1, pause = 2):
-                webbrowser.open("https://google.com/search?q=%s" % query)
+            googleSearch(query)

@@ -5,6 +5,7 @@ import wikipedia
 import webbrowser
 import os
 import smtplib
+from googlesearch import *
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -89,10 +90,12 @@ if __name__=="__main__":
         
         elif "open youtube" in query:
             speak("opening youtube")
+            chrome_path = r'C:\\Program Files (x86)\\Google\\Chrome\\Application %s'
             webbrowser.open("youtube.com")
 
         elif "open google" in query:
             speak("opening google")
+            chrome_path = r'C:\\Program Files (x86)\\Google\\Chrome\\Application %s'
             webbrowser.open("google.com")        
         
         elif "play music" in query:
@@ -109,19 +112,33 @@ if __name__=="__main__":
             try:
                 speak("To whom? (First Name Only)")
                 contact=takeCommand().lower()
+                mailid=addressbook(contact)
                 if mailid=="Error":
                     speak("You have entered a Invalid name. Please Try again")
                     raise "InvalidEmailIdException"
                 speak("what should I say?")
                 message=takeCommand()
-                mailid=addressbook(contact)
                 sendEmail( mailid ,message)
-                print("Your email has been sent")
+                speak("Your email has been sent")
            
             except Exception as e:
                 print(e)
                 speak("Error sending email")
         
+        elif "email id" in query:
+            speak("Who's email id do you want? (First Name Only)")
+            contact=takeCommand().lower()
+            mailid=addressbook(contact)
+            if mailid=="Error":
+                speak("You have entered a Invalid name. Please Try again")
+            else:
+                speak(f"{contact}'s email id is : {mailid}")
+            
         elif "exit" in query:
                 speak("Have a Good day!")
                 break
+            
+        else:
+            chrome_path = r'C:\\Program Files (x86)\\Google\\Chrome\\Application %s'
+            for url in search(query, tld="co.in", num=1, stop = 1, pause = 2):
+                webbrowser.open("https://google.com/search?q=%s" % query)

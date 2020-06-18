@@ -1,3 +1,24 @@
+#############################################################################
+
+#                     VIRTUAL ASSISTANT USING PYTHON
+
+#############################################################################
+
+#                              Devloped By:
+
+# Name: Souraj Mukhopadhyay
+# Github: Souraj239
+# Emailid: sourajm239@gmail.com
+# LinkedIn : https://www.linkedin.com/in/souraj-mukhopadhyay-a00002161/
+#Twitter: @souraj239
+#instagram: souraj.m
+
+##############################################################################
+
+# Do read the Readme file before using the code
+
+##############################################################################
+
 import pyttsx3
 import datetime
 import speech_recognition as sr
@@ -9,7 +30,7 @@ from googlesearch import *
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-engine.setProperty('voice',voices[2].id)
+engine.setProperty('voice',voices[2].id)                                                #Toggle between [0] & [1] for male and female voice
 
 def speak(audio):
     print(audio)
@@ -35,7 +56,7 @@ def takeCommand():
         audio=r.listen(source,10)
     try:
         print("Recognizing...")
-        query=r.recognize_google(audio,language='en-in')
+        query=r.recognize_google(audio,language='en-in')                         #Change the language as per requirements
         print(f"You said :  {query}\n")
         
     except sr.WaitTimeoutError:
@@ -131,7 +152,7 @@ if __name__=="__main__":
             webbrowser.open("google.com")        
         
         elif "play music" in query or 'play songs' in query:
-            music_dir="D:\\music"                            #Add your own music directory
+            music_dir="D:\\music"                                                    #Add your own music directory
             songs=os.listdir(music_dir)
             print(songs)
             os.startfile(os.path.join(music_dir,songs[0])) 
@@ -176,7 +197,7 @@ if __name__=="__main__":
         elif "read" in query and "notes" in query:
             readNotes()
             
-        elif "exit" in query:
+        elif "exit" in query:                               
             speak("Have a Good day!")
             break
             

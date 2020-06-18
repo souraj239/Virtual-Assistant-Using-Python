@@ -9,12 +9,12 @@ output and can understang speech inputs in indian accents. The virtual assistant
 
 Before using the virtual assistant make sure you install the required libraries for python using the commands
 
-pip -install pyaudio
-pip -install pywin32
-pip -install google
-pip -install pyttsx3
-pip -install wikipedia
-pip -install speechRecognisation
+1. pip -install pyaudio
+2. pip -install pywin32
+3. pip -install google
+4. pip -install pyttsx3
+5. pip -install wikipedia
+6. pip -install speechRecognisation
 
 The virtual assistant can perform the following tasks through voice input:
 1. Search wikipedia

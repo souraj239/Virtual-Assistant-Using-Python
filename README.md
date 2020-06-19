@@ -45,6 +45,8 @@ Note:
 2. Add your gamil account credentials in the credentials.txt file and turn on "sign in using less secure apps" in google account.
 3. Add the applications installed in your pc with their path address in the applicationpaths.txt file
 4. Other things that can be changed in the program are metioned in the program itself using comments.
+5. Goto newsapi.org and get your api key and insert it in the readNews function
+
 
 
 Devloped by:

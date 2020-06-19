@@ -27,6 +27,8 @@ import webbrowser
 import os
 import smtplib
 from googlesearch import *
+import requests
+import json
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -122,6 +124,15 @@ def sendEmail(to, message):
     server.login(eid,passw)
     server.sendmail(eid,to,message)
 
+def readNews():
+    speak("Today's Headlines.:")
+    url="http://newsapi.org/v2/top-headlines?country=in&apiKey=xxxxxxxxxxxxxxxxxxxxxxxx"    #Modify with your own api key here
+    news=requests.get(url).text
+    news_json=json.loads(news)
+    articles=news_json.get('articles')
+    for article in articles:
+        speak(article.get("title"))
+        speak("Moving to next news")
 
 if __name__=="__main__":
     wishMe()
@@ -134,7 +145,7 @@ if __name__=="__main__":
             speak("According to Wikipedia...")
             speak(results)
             
-        if 'who is'in query:
+        elif 'who is'in query:
             speak("Searching wikipedia......")
             query=query.replace("who is"," ")
             results=wikipedia.summary(query,sentences=3)
@@ -197,9 +208,20 @@ if __name__=="__main__":
         elif "read" in query and "notes" in query:
             readNotes()
             
+        elif "news" in query:
+            readNews()
+            
         elif "exit" in query:                               
             speak("Have a Good day!")
             break
             
         else:
             googleSearch(query)
+            
+        '''    
+        query=takeCommand()                                             #comment out if you want to respond it only on "Hey Assistant" Command
+        while("assistant" not in query):
+           query=takeCommand()
+            continue
+        speak("How may I help you?")
+        '''

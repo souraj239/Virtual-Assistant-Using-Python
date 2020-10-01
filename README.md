@@ -1,7 +1,7 @@
 # Virtual-Assistant-Using-Python
 Virtual assistant using python capable of taking notes, play music,  google search, open applications, search wikipedia and much more
 
-                                                VIRTUAL assistant USING PYTHON
+                                                VIRTUAL ASSISTANT USING PYTHON
 
 This is a speech recognisation and voice feedback enabled interactive personal assistant devloped using python. It will keep listening to 
 the commands until "exit" command is given. Please read the entire document carefully for the setup process and commands. It can give voice

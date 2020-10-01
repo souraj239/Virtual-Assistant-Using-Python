@@ -1,0 +1,8 @@
+pip>=20.2.3
+pyaudio == 0.2.11
+pywin32 == 228
+google == 3.0.0
+pyttsx3 == 2.90
+wikipedia == 1.4.0
+speechRecognisation == 3.8.1
+
